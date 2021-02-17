@@ -3,53 +3,57 @@ const listItem = document.querySelectorAll(".slide__list__item");
 const prevBtn = document.querySelector(".button__box__prevBtn");
 const nextBtn = document.querySelector(".button__box__nextBtn");
 
-
 let transMove = -300;
 let currentNumber = 1
+let mode = "auto";
 list.style.transform = `translateX(${transMove}px)`;
+console.log("mode =",mode);
 
-setInterval(()=>{
-    list.style.transition = "0.3s all";
-    transMove -= 300
-    currentNumber += 1;
-    list.style.transform = `translateX(${transMove}px)`;
-    console.log( "transMove =",transMove);
-    console.log("currentNumber =", currentNumber);
 
-    if(currentNumber)
-},2000)
+function transMode(){
+    mode = "menual";            //모드 menual 변경
+    console.log("mode =",mode);
+    setTimeout(()=>{
+        mode = "auto";      //모드 auto 변경
+    },6000);
+}
+
 
 function handleNextClick(){
+    rightMove();    // nextBtn
+    transMode();    // mode change & interval
+}
+
+function handlePrevClick(){
+    leftMove();     // prevBtn
+    transMode();    // mode change & interval
+}
+
+
+function rightMove(){
     if(currentNumber === 5){
         list.style.transition = "0.3s all";
         currentNumber = 1;
-        console.log("currentNumber =", currentNumber);
         transMove -=300;
-        console.log( "transMove =",transMove);
         list.style.transform = `translate(${transMove}px)`;
         setTimeout(()=> {
             list.style.transition = "none";
             transMove = -300;
             list.style.transform = `translate(${transMove}px)`;
-            return transMove;
         },300)
     }else {
         list.style.transition = "0.3s all";
         transMove -= 300;
         list.style.transform = `translate(${transMove}px)`;
         currentNumber += 1;
-        console.log( "transMove =",transMove);
-        console.log("currentNumber =", currentNumber);
     }
 }
 
-function handlePrevClick(){
+function leftMove(){
     if(currentNumber === 1){
         list.style.transition = "0.3s all";
         currentNumber = 5;
-        console.log("currentNumber =", currentNumber);
         transMove +=300;
-        console.log( "transMove =",transMove);
         list.style.transform = `translate(${transMove}px)`;
         setTimeout(()=> {
             list.style.transition = "none";
@@ -62,8 +66,6 @@ function handlePrevClick(){
         transMove += 300;
         list.style.transform = `translate(${transMove}px)`;
         currentNumber -= 1;
-        console.log( "transMove =",transMove);
-        console.log("currentNumber =", currentNumber);
     }
 }
 
