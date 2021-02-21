@@ -7,7 +7,8 @@ let transMove = -300;
 let currentNumber = 1
 let mode = "auto";
 list.style.transform = `translateX(${transMove}px)`;
-console.log("mode =",mode);
+
+let repeat = setInterval(rightMove,2000);
 
 
 function transMode(){
@@ -21,7 +22,12 @@ function transMode(){
 
 function handleNextClick(){
     rightMove();    // nextBtn
+    clearInterval(repeat);
     transMode();    // mode change & interval
+    if(mode === "menual"){
+        repeat = setInterval(rightMove,5000);
+    }
+    console.log(currentNumber);
 }
 
 function handlePrevClick(){
